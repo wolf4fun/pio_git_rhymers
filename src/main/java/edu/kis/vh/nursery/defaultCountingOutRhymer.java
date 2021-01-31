@@ -8,6 +8,7 @@ public class DefaultCountingOutRhymer {
     private static final int IS_EMPTY = -1;
     private static final int CAPACITY = 12;
 
+    private int total = IS_EMPTY;
     private final int[] numbers = new int[CAPACITY];
 
     /**
@@ -15,21 +16,21 @@ public class DefaultCountingOutRhymer {
      */
     public void countIn(int in) {
         if (!isFull())
-            numbers[++EMPTY_RHYMER_INDICATOR] = in;
+            numbers[++total] = in;
     }
 
     /**
      * @return boolean Checking if index of array has a default value
      */
     public boolean callCheck() {
-        return EMPTY_RHYMER_INDICATOR == IS_EMPTY;
+        return total == IS_EMPTY;
     }
 
     /**
      * @return boolean Checking if array of numbers is full
      */
     public boolean isFull() {
-        return EMPTY_RHYMER_INDICATOR == CAPACITY - 1;
+        return total == CAPACITY - 1;
     }
 
     /**
@@ -39,7 +40,7 @@ public class DefaultCountingOutRhymer {
     protected int peekaboo() {
         if (callCheck())
             return IS_EMPTY;
-        return numbers[EMPTY_RHYMER_INDICATOR];
+        return numbers[total];
     }
 
     /**
@@ -49,7 +50,7 @@ public class DefaultCountingOutRhymer {
     public int countOut() {
         if (callCheck())
             return IS_EMPTY;
-        return numbers[EMPTY_RHYMER_INDICATOR--];
+        return numbers[total--];
     }
 
 }
