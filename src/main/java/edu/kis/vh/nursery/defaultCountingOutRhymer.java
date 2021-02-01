@@ -1,34 +1,41 @@
 package edu.kis.vh.nursery;
 
-public class defaultCountingOutRhymer {
+import edu.kis.vh.nursery.storage.IntArrayStack;
+import edu.kis.vh.nursery.storage.IntStorage;
+public class DefaultCountingOutRhymer {
+    private final IntStorage intStore;
 
-	private int[] NUMBERS = new int[12];
+    public DefaultCountingOutRhymer(IntStorage intStorage) {
+        this.intStore = intStorage;
+    }
 
-	public int total = -1;
+    public DefaultCountingOutRhymer() {
+        //! For Demo IntArrayStack was chosen over IntLinkedList however if size of container is not known, using IntLinkedList() is preferred
+        intStore = new IntArrayStack();
+    }
 
-	public void countIn(int in) {
-		if (!isFull())
-			NUMBERS[++total] = in;
-	}
+    public int getTotal() {
+        return intStore.getTotal();
+    }
 
-		public boolean callCheck() {
-			return total == -1;
-		}
-		
-			public boolean isFull() {
-				return total == 11;
-			}
-		
-				protected int peekaboo() {
-					if (callCheck())
-						return -1;
-					return NUMBERS[total];
-				}
-			
-					public int countOut() {
-						if (callCheck())
-							return -1;
-						return NUMBERS[total--];
-					}
+    public void countIn(int in) {
+        intStore.push(in);
+    }
+
+    public boolean callCheck() {
+        return intStore.isEmpty();
+    }
+
+    public boolean isFull() {
+        return intStore.isFull();
+    }
+
+    public int peekaboo() {
+        return intStore.top();
+    }
+
+    public int countOut() {
+        return intStore.pop();
+    }
 
 }
