@@ -1,56 +1,38 @@
 package edu.kis.vh.nursery;
 
 public class DefaultCountingOutRhymer {
+    private final IntArrayStack intArrayStack;
 
-    //! Correction based on https://gist.github.com/kowallus/af13f7e430fbf1a7c9a293b9e57e66bc
+    public DefaultCountingOutRhymer(IntArrayStack intArrayStack) {
+        this.intArrayStack = intArrayStack;
+    }
 
-    private static int EMPTY_RHYMER_INDICATOR = -1;
-    private static final int IS_EMPTY = -1;
-    private static final int CAPACITY = 12;
+    public DefaultCountingOutRhymer() {
+        intArrayStack = new IntArrayStack();
+    }
 
-    private int total = IS_EMPTY;
-    private final int[] numbers = new int[CAPACITY];
+    public int getTotal() {
+        return intArrayStack.getTotal();
+    }
 
-    /**
-     * @param in Adding element to numbers array
-     */
     public void countIn(int in) {
-        if (!isFull())
-            numbers[++total] = in;
+        intArrayStack.countIn(in);
     }
 
-    /**
-     * @return boolean Checking if index of array has a default value
-     */
     public boolean callCheck() {
-        return total == IS_EMPTY;
+        return intArrayStack.callCheck();
     }
 
-    /**
-     * @return boolean Checking if array of numbers is full
-     */
     public boolean isFull() {
-        return total == CAPACITY - 1;
+        return intArrayStack.isFull();
     }
 
-    /**
-     * @return int On succes returns the last element of array, DEFAULT_VALUE is
-     *         returned otherwise
-     */
-    protected int peekaboo() {
-        if (callCheck())
-            return IS_EMPTY;
-        return numbers[total];
+    public int peekaboo() {
+        return intArrayStack.peekaboo();
     }
 
-    /**
-     * @return int On succes returns last element and decrements index of array
-     *         numbers, DEFAULT_VALUE is returned otherwise
-     */
     public int countOut() {
-        if (callCheck())
-            return IS_EMPTY;
-        return numbers[total--];
+        return intArrayStack.countOut();
     }
 
 }
