@@ -1,13 +1,12 @@
-package edu.kis.vh.nursery;
+package edu.kis.vh.nursery.storage;
 
-public class IntArrayStack {
+public class IntArrayStack implements IntStorage{
     //! Correction based on https://gist.github.com/kowallus/af13f7e430fbf1a7c9a293b9e57e66bc
 
-    private static int EMPTY_RHYMER_INDICATOR = -1;
-    private static final int IS_EMPTY = -1;
-    private static final int CAPACITY = 12;
+    private static final int EMPTY_RHYMER_INDICATOR = -1;
+    private int total = EMPTY_RHYMER_INDICATOR;
 
-    private int total = IS_EMPTY;
+    private static final int CAPACITY = 12;
     private final int[] numbers = new int[CAPACITY];
 
     /**
@@ -26,10 +25,10 @@ public class IntArrayStack {
     }
 
     /**
-     * @return boolean Checking if index of array has a default value
+     * @return boolean Checking if index of array has a default value (EMPTY_RHYMER_INDICATOR)
      */
     public boolean callCheck() {
-        return total == IS_EMPTY;
+        return total == EMPTY_RHYMER_INDICATOR;
     }
 
     /**
@@ -40,10 +39,10 @@ public class IntArrayStack {
     }
 
     /**
-     * @return int On succes returns the last element of array, DEFAULT_VALUE is
+     * @return int On succes returns the last element of array, IS_EMPTY is
      *         returned otherwise
      */
-    protected int peekaboo() {
+    public int peekaboo() {
         if (callCheck())
             return IS_EMPTY;
         return numbers[total];
@@ -51,12 +50,32 @@ public class IntArrayStack {
 
     /**
      * @return int On succes returns last element and decrements index of array
-     *         numbers, DEFAULT_VALUE is returned otherwise
+     *         numbers, IS_EMPTY is returned otherwise
      */
     public int countOut() {
         if (callCheck())
             return IS_EMPTY;
         return numbers[total--];
+    }
+
+    @Override
+    public void push(int value) {
+        countIn(value);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return callCheck();
+    }
+
+    @Override
+    public int top() {
+        return peekaboo();
+    }
+
+    @Override
+    public int pop() {
+        return countOut();
     }
 
 }
