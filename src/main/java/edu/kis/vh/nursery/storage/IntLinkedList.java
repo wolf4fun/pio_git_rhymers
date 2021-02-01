@@ -1,7 +1,6 @@
 package edu.kis.vh.nursery.storage;
 
 public class IntLinkedList implements IntStorage {
-
 	private class Node {
 
 		public final int value;
